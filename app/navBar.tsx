@@ -7,10 +7,12 @@ const Navbar = () => {
   return (
     <div className="sticky font-inter top-0 bg-black/50 backdrop:blur-md transition-all duration-300 flex items-center justify-between px-10 md:px-16 md:py-6 py-6 w-full z-50">
 
-      <div className="flex items-center gap-1 font-bold justify-center text-gray-300 hover:text-white hover:opacity-80 transition-opacity cursor-pointer duration-300">
-        <House size={25} className="text-blue-700"/>
-        <h1 className="text-2xl tracking-tight">PrimePath</h1>
-      </div>
+      <div className="flex items-center gap-2">
+              <div className="bg-blue-700 p-2 rounded-lg">
+                <House size={24} className="text-white" />
+              </div>
+              <h1 className="text-2xl font-bold text-white font-montserrat tracking-tight">PrimePath</h1>
+            </div>
 
       <nav className="hidden lg:block font-light">
         <ul className="group flex gap-15 items-center text-gray-300 transition-colors duration-300 text-xl font-bold">

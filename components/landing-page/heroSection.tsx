@@ -106,7 +106,7 @@ const HeroSection = () => {
 
       {/* Search Button - Now below or part of the grid */}
       <div className="md:col-span-1">
-        <Button className="w-full bg-blue-700 hover:bg-blue-400 text-white font-bold py-6 rounded-lg">
+        <Button className="w-full bg-blue-700 hover:bg-blue-400 dark:hover:bg-slate-900 dark:hover:border-blue-700 text-white font-bold py-6 rounded-lg">
           Search
         </Button>
       </div>
