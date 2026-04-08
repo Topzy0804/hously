@@ -120,6 +120,16 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.15) translate(-1%, -1%);
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
