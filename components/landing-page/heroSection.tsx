@@ -50,7 +50,7 @@ const HeroSection = () => {
         </div> */}
 
 
-     <div className="absolute left-1/2 bg-white dark:bg-slate-900 dark:text-white font-inter bottom-0 w-full max-w-6xl -translate-x-1/2 translate-y-1/2 z-9 px-4">
+     <div className="absolute left-1/2 bg-white dark:bg-slate-900 dark:text-white font-inter md:bottom-0 -bottom-20 w-full max-w-6xl -translate-x-1/2 translate-y-1/2 z-9 px-4">
   {/* 1. Tabs Section */}
   <div className="flex w-fit mx-auto   rounded-t-xl overflow-hidden shadow-sm">
     {['Buy', 'Sell', 'Rent'].map((tab) => (

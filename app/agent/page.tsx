@@ -1,8 +1,11 @@
 import React from 'react'
+import PropertyPage from '../(dashboard)/admin/property-page/propertyPage'
 
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+      <PropertyPage />
+    </div>
   )
 }
 

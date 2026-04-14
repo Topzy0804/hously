@@ -1,6 +1,8 @@
+"use client"
+
 import React from 'react';
-import Sidebar from '../component/sidebar/sidebar';
 import { DollarSign, Users, Home, Zap, LucideIcon } from 'lucide-react';
+import { useUser } from '@/app/context/user-context/userContext';
 
 interface StatCardProps {
   label: string;
@@ -24,14 +26,14 @@ const AdminDashboard: React.FC = () => {
     { label: 'Properties for Rent', value: '115', Icon: Home, colorClass: 'text-green-500 bg-green-50' },
   ];
 
+  const { user } = useUser();
+
   return (
-    <div className="flex min-h-screen bg-slate-50 font-sans">
-      <Sidebar />
-      
-      <main className="flex-1 p-4 lg:p-8">
+    <div className="flex min-h-screen mx-auto bg-slate-50 font-sans">
+      <main className="p-4 lg:p-8 w-full">
         <div className="flex justify-between items-center mb-10">
           <div>
-            <h1 className="text-xl font-bold text-slate-800">Hello, Calvin</h1>
+            <h1 className="text-xl font-bold text-slate-800">Hello, <span className="text-blue-500">{user?.name || 'Guest'}</span></h1>
             <p className="text-slate-400 text-sm">Welcome back!</p>
           </div>
           <div className="flex items-center gap-4">

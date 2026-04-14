@@ -8,7 +8,7 @@ const HowItWork = () => {
         <p className="font-inter max-w-2xl text-center text-gray-500">A simple guide to understanding our process and how we can help you achieve your real estate goals.</p>
       </div>
 
-      <div className="flex  items-center justify-center gap-20 mt-20">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-20 mt-20">
         <div className="flex flex-col gap-3 justify-center items-center text-center">
           <div className="flex items-center justify-center h-24 w-24 bg-blue-100 [clip-path:polygon(25%_0%,75%_0%,100%_50%,75%_100%,25%_100%,0%_50%)]">
           <House size={30} className="text-blue-700"/>

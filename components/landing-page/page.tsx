@@ -11,7 +11,7 @@ const page = () => {
         <HeroSection />
       </div>
 
-      <div className='mt-50'>
+      <div className='md:mt-50 mt-64 py-24 md:py-1'>
         <About />
       </div>
 
