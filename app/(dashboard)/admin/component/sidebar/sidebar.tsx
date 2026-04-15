@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { 
   LayoutDashboard, 
   Search, 
-  Heart, 
+  MessageSquare, 
   PlusCircle, 
   User, 
   BookOpen, 
@@ -28,10 +28,10 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = true }) => {
   const menuItems: NavItem[] = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/admin/admin-dashboard' },
     { name: 'Explore Properties', icon: Search, path: '/admin/property-page' },
-    { name: 'Favorite Properties', icon: Heart },
     { name: 'Add Properties', icon: PlusCircle, path: '/admin/add-property' },
     { name: 'User Profile', icon: User, path: '/admin/user-profile' },
-    { name: 'Blog', icon: BookOpen },
+    { name: 'Chat', icon: MessageSquare, path: '/admin/messages' },
+    { name: 'Blog', icon: BookOpen, path: '/admin/blog' },
   ];
 
   return (

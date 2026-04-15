@@ -1,16 +1,58 @@
 "use client"
 
-import React from 'react'
 import Image from 'next/image'
-import { Mail, Phone, MapPin } from 'lucide-react' // Added specific icons
+import Link from 'next/link'
+import { useUser } from '@/app/context/user-context/userContext'
+import { Mail, Phone, MapPin } from 'lucide-react' 
+import { getRows } from '@/app/utils/db'
+import { useEffect, useState } from 'react'
+
+interface UserProfileData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  occupation?: string;
+  description?: string;
+}
+
 
 const UserProfile = () => {
+  const { user } = useUser()
+
+
+  const [profileData, setProfileData] = useState<UserProfileData | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      setLoading(true);
+      try {
+        const data = await getRows(
+          process.env.NEXT_PUBLIC_APPWRITE_USERS_PROFILE_TABLE_ID || 'user-profile',
+          user?.email || ''
+        );
+        setProfileData(data);
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (user?.email) {
+      fetchProfileData();
+    } else {
+      setLoading(false);
+    }
+  }, [user?.email]);
+
+
   return (
     <div className="w-full bg-white p-10">
       <div className="flex items-center justify-end mb-6">
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+        <Link href="/admin/edit-profile" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
           Edit Profile
-        </button>
+        </Link>
       </div>
       {/* Cover Image Container */}
       <div className="relative w-full h-72 rounded-xl overflow-hidden">
@@ -35,8 +77,8 @@ const UserProfile = () => {
           />
         </div>
         <div className="pb-4">
-          <h3 className="text-2xl font-bold text-slate-800 font-poppins">John Doe</h3>
-          <p className="text-slate-500 font-poppins text-sm">john.doe@example.com</p>
+          <h3 className="text-2xl font-bold text-slate-800 font-poppins">{user?.name}</h3>
+          <p className="text-slate-500 font-poppins text-sm">{user?.email}</p>
         </div>
       </div>
 
@@ -47,9 +89,9 @@ const UserProfile = () => {
           <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
             <h4 className="font-bold mb-4 text-slate-800">Contact Details</h4>
             <div className="space-y-4">
-              <ContactItem icon={Mail} label="Email" value="john.doe@example.com" />
-              <ContactItem icon={Phone} label="Phone" value="+1 (123) 456-7890" />
-              <ContactItem icon={MapPin} label="Location" value="New York, USA" />
+              <ContactItem icon={Mail} label="Email" value={user?.email} />
+              <ContactItem icon={Phone} label="Phone" value={profileData?.phone || '+1 (123) 456-7890'} />
+              <ContactItem icon={MapPin} label="Location" value={profileData?.location || 'New York, USA'} />
             </div>
           </div>
         </div>
@@ -59,7 +101,7 @@ const UserProfile = () => {
           <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
             <h3 className="font-bold text-lg mb-2 text-slate-800">About Me</h3>
             <p className="text-slate-600 leading-relaxed text-sm">
-              I have started my career as a trainee and proven myself...
+              {profileData?.description || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}
             </p>
           </div>
           
@@ -76,7 +118,7 @@ const UserProfile = () => {
 }
 
 // Small helper component for contact items
-const ContactItem = ({ icon: Icon, label, value }: { icon: any, label: string, value: string }) => (
+const ContactItem = ({ icon: Icon, label, value }: { icon: any, label: string, value?: string | undefined }) => (
   <div className="flex items-start gap-3">
     <div className="p-2 bg-white rounded-lg shadow-sm">
       <Icon size={18} className="text-green-600" />
