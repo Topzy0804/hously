@@ -27,6 +27,7 @@ export const getRows = async (tableId, emailOrQueries) => {
     });
 
     // Appwrite responses vary by SDK version; try common shapes
+    
     const rows = response?.rows ?? response?.documents ?? response;
     if (Array.isArray(rows) && rows.length > 0) {
       const first = rows[0];

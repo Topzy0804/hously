@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useUser } from '@/app/context/user-context/userContext'
-import { Mail, Phone, MapPin } from 'lucide-react' 
+import { Mail, Phone, MapPin, Globe } from 'lucide-react' 
 import { getRows } from '@/app/utils/db'
 import { useEffect, useState } from 'react'
 
@@ -13,7 +13,13 @@ interface UserProfileData {
   email: string;
   occupation?: string;
   description?: string;
+  phoneNumber?: string;
+  location?: string;
+  website?: string;
+  profileImage?: string;
 }
+
+
 
 
 const UserProfile = () => {
@@ -47,6 +53,7 @@ const UserProfile = () => {
   }, [user?.email]);
 
 
+
   return (
     <div className="w-full bg-white p-10">
       <div className="flex items-center justify-end mb-6">
@@ -69,16 +76,16 @@ const UserProfile = () => {
       <div className="px-8 -mt-16 relative z-10 flex flex-col md:flex-row items-end gap-6">
         <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg">
           <Image 
-            src="/user-cover-image.jpg" 
+            src={profileData?.profileImage || "/user-cover-image.jpg"} 
             alt="Profile" 
             width={128} 
             height={128} 
             className="object-cover h-full w-full" 
           />
         </div>
-        <div className="pb-4">
-          <h3 className="text-2xl font-bold text-slate-800 font-poppins">{user?.name}</h3>
-          <p className="text-slate-500 font-poppins text-sm">{user?.email}</p>
+        <div className="pb-4 capitalize">
+          <h3 className="text-2xl font-bold text-slate-800 font-poppins">{profileData?.firstName} {profileData?.lastName}</h3>
+          <p className="text-slate-500 font-poppins text-sm">{profileData?.email}</p>
         </div>
       </div>
 
@@ -88,10 +95,12 @@ const UserProfile = () => {
         <div className="md:col-span-1 space-y-6">
           <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
             <h4 className="font-bold mb-4 text-slate-800">Contact Details</h4>
-            <div className="space-y-4">
-              <ContactItem icon={Mail} label="Email" value={user?.email} />
-              <ContactItem icon={Phone} label="Phone" value={profileData?.phone || '+1 (123) 456-7890'} />
+            <div className="space-y-4 capitalize">
+              <ContactItem icon={Mail} label="Email" value={profileData?.email} />
+              <ContactItem icon={Phone} label="Phone" value={profileData?.phoneNumber || '+1 (123) 456-7890'} />
               <ContactItem icon={MapPin} label="Location" value={profileData?.location || 'New York, USA'} />
+              <ContactItem icon={Globe} label="Website" value={profileData?.website || 'https://example.com'} />
+              <ContactItem icon={Globe} label="Occupation" value={profileData?.occupation || 'Software Engineer'} />
             </div>
           </div>
         </div>
