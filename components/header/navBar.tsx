@@ -71,12 +71,12 @@ const Navbar = () => {
             </nav>
 
             <div className="pt-4 border-t border-gray-800 flex flex-col gap-3">
-              <div className="flex items-center gap-3">
+              <Link href="/admin/user-profile" className="flex items-center gap-3">
                 <div className="p-2 rounded-full bg-blue-700 text-white">
                   <User size={18} />
                 </div>
                 <span className="text-gray-200">{user ? user.name : 'Guest'}</span>
-              </div>
+              </Link>
 
               {!user && (
                 <Link href="/auth/sign-up" className="inline-flex items-center justify-center bg-blue-700 text-white font-bold px-6 py-2 rounded-xl">

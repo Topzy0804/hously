@@ -42,7 +42,7 @@ const SignIn: React.FC = () => {
       try {
         setLoading(true);
         await account.createEmailPasswordSession(userDetails.email, userDetails.password);
-        router.push("/");
+        router.push("/admin/admin-dashboard");
       } catch (err: any) {
         setError(err?.message ?? 'An error occurred during sign in.');
       } finally {

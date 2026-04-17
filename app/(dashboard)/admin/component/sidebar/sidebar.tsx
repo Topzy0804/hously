@@ -1,5 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import { useUser } from '@/app/context/user-context/userContext'
+import { account } from '@/lib/appwrite'
+import { useRouter } from 'next/navigation'
 
 import { 
   LayoutDashboard, 
@@ -26,6 +29,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen = true }) => {
   const menuItems: NavItem[] = [
+    { name: 'Home', icon: House, path: '/' },
     { name: 'Dashboard', icon: LayoutDashboard, path: '/admin/admin-dashboard' },
     { name: 'Explore Properties', icon: Search, path: '/admin/property-page' },
     { name: 'Add Properties', icon: PlusCircle, path: '/admin/add-property' },
@@ -33,6 +37,19 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = true }) => {
     { name: 'Chat', icon: MessageSquare, path: '/admin/messages' },
     { name: 'Blog', icon: BookOpen, path: '/admin/blog' },
   ];
+
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await account.deleteSession({
+        sessionId: 'current',
+      });
+      router.push('/auth/sign-in');
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
+  }
 
   return (
     <aside className={`w-64 h-screen bg-[#1e293b] text-slate-400 flex flex-col sticky top-0 ${isOpen ? 'hidden' : 'lg:flex'}`}>
@@ -60,6 +77,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen = true }) => {
           </Link>
         ))}
       </nav>
+      <div className='p-4'>
+       <button 
+       onClick={handleLogout}
+       className="w-full flex items-center justify-between p-3 rounded-lg transition-all duration-200 hover:bg-slate-800 hover:text-slate-200">
+         Logout
+       </button>
+      </div>
     </aside>
   );
 };
